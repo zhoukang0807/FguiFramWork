@@ -45,5 +45,5 @@ Assets:
 - Assets/LuaFramework/Examples/Builds/Prompt/PromptItem.prefab
 - Assets/LuaFramework/Examples/Builds/Prompt/PromptPanel.prefab
 Dependencies:
-- D:/project/LuaNetWork/Assets/StreamingAssets/prompt_asset.unity3d
-- D:/project/LuaNetWork/Assets/StreamingAssets/shared_asset.unity3d
+- D:/project/FguiFramWork/LuaNetWork/Assets/StreamingAssets/prompt_asset.unity3d
+- D:/project/FguiFramWork/LuaNetWork/Assets/StreamingAssets/shared_asset.unity3d

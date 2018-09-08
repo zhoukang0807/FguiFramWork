@@ -86,16 +86,16 @@
     <Compile Include="Assets\LuaFramework\ToLua\Injection\Editor\ToLuaInjectionHelper.cs" />
     <Compile Include="Assets\LuaFramework\ToLua\Injection\Editor\ToLuaText.cs" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>D:/project/LuaNetWork/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>D:/project/FguiFramWork/LuaNetWork/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/project/LuaNetWork/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/project/FguiFramWork/LuaNetWork/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/project/LuaNetWork/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>D:/project/FguiFramWork/LuaNetWork/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/project/LuaNetWork/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/project/FguiFramWork/LuaNetWork/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -344,19 +344,19 @@
       <HintPath>D:/unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="CString">
-      <HintPath>D:/project/LuaNetWork/Assets/Plugins/CString.dll</HintPath>
+      <HintPath>D:/project/FguiFramWork/LuaNetWork/Assets/Plugins/CString.dll</HintPath>
     </Reference>
     <Reference Include="Debugger">
-      <HintPath>D:/project/LuaNetWork/Assets/Plugins/Debugger.dll</HintPath>
+      <HintPath>D:/project/FguiFramWork/LuaNetWork/Assets/Plugins/Debugger.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
-      <HintPath>D:/project/LuaNetWork/Assets/Plugins/DOTween.dll</HintPath>
+      <HintPath>D:/project/FguiFramWork/LuaNetWork/Assets/Plugins/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="FairyGUI">
-      <HintPath>D:/project/LuaNetWork/Assets/Plugins/FairyGUI.dll</HintPath>
+      <HintPath>D:/project/FguiFramWork/LuaNetWork/Assets/Plugins/FairyGUI.dll</HintPath>
     </Reference>
     <Reference Include="FairyGUI.Editor">
-      <HintPath>D:/project/LuaNetWork/Assets/Plugins/Editor/FairyGUI.Editor.dll</HintPath>
+      <HintPath>D:/project/FguiFramWork/LuaNetWork/Assets/Plugins/Editor/FairyGUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>C:/Users/admin/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>

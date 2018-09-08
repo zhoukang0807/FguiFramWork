@@ -1074,7 +1074,7 @@ public class UnityEngine_QualitySettingsWrap
 		try
 		{
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
-			UnityEngine.QualitySettings.streamingMipmapsRenderersPerFrame = arg0;
+			//UnityEngine.QualitySettings.streamingMipmapsRenderersPerFrame = arg0;
 			return 0;
 		}
 		catch (Exception e)

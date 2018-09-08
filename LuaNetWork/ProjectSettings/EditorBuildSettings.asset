@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/LuaFramework/Scenes/Loading.unity
-    guid: dd9cc4b00f056804fb24653fc30595a9
+    path: Assets/LuaFramework/Scenes/main.unity
+    guid: 75eee5e7009aba84192cfcdff8590f2a
   m_configObjects: {}
