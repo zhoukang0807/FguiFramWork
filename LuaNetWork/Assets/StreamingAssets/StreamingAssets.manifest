@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 3299355626
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: prompt.unity3d
+      Dependencies:
+        Dependency_0: prompt_asset.unity3d
+        Dependency_1: shared_asset.unity3d
+    Info_1:
+      Name: message.unity3d
+      Dependencies:
+        Dependency_0: shared_asset.unity3d
+    Info_2:
+      Name: prompt_asset.unity3d
+      Dependencies: {}
+    Info_3:
+      Name: shared_asset.unity3d
+      Dependencies: {}
+    Info_4:
+      Name: desc_loadpanel.unity3d
+      Dependencies: {}
+    Info_5:
+      Name: res_loadpanel.unity3d
+      Dependencies: {}
