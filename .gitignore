@@ -1,0 +1,8 @@
+LuaNetWork/Library/
+LuaNetWork/ProjectSettings/
+LuaNetWork/Assets/StreamingAssets/
+LuaNetWork/obj/
+LuaNetWork/Packages/manifest.json
+LuaNetWork/Assets/temp/
+LuaNetWork/.vs/
+leafserver/src/server/debug
