@@ -7,9 +7,9 @@ public class FairyGUI_GComboBoxWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FairyGUI.GComboBox), typeof(FairyGUI.GComponent));
+		L.RegFunction("GetTextField", GetTextField);
 		L.RegFunction("HandleControllerChanged", HandleControllerChanged);
 		L.RegFunction("Dispose", Dispose);
-		L.RegFunction("ConstructFromXML", ConstructFromXML);
 		L.RegFunction("Setup_AfterAdd", Setup_AfterAdd);
 		L.RegFunction("UpdateDropdownList", UpdateDropdownList);
 		L.RegFunction("New", _CreateFairyGUI_GComboBox);
@@ -21,6 +21,7 @@ public class FairyGUI_GComboBoxWrap
 		L.RegVar("title", get_title, set_title);
 		L.RegVar("text", get_text, set_text);
 		L.RegVar("titleColor", get_titleColor, set_titleColor);
+		L.RegVar("titleFontSize", get_titleFontSize, set_titleFontSize);
 		L.RegVar("items", get_items, set_items);
 		L.RegVar("icons", get_icons, set_icons);
 		L.RegVar("values", get_values, set_values);
@@ -48,6 +49,23 @@ public class FairyGUI_GComboBoxWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: FairyGUI.GComboBox.New");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetTextField(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			FairyGUI.GComboBox obj = (FairyGUI.GComboBox)ToLua.CheckObject<FairyGUI.GComboBox>(L, 1);
+			FairyGUI.GTextField o = obj.GetTextField();
+			ToLua.PushObject(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{
@@ -89,31 +107,15 @@ public class FairyGUI_GComboBoxWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ConstructFromXML(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			FairyGUI.GComboBox obj = (FairyGUI.GComboBox)ToLua.CheckObject<FairyGUI.GComboBox>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.ConstructFromXML(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int Setup_AfterAdd(IntPtr L)
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 3);
 			FairyGUI.GComboBox obj = (FairyGUI.GComboBox)ToLua.CheckObject<FairyGUI.GComboBox>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup_AfterAdd(arg0);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			obj.Setup_AfterAdd(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)
@@ -272,6 +274,25 @@ public class FairyGUI_GComboBoxWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_titleFontSize(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.GComboBox obj = (FairyGUI.GComboBox)o;
+			int ret = obj.titleFontSize;
+			LuaDLL.lua_pushinteger(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index titleFontSize on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_items(IntPtr L)
 	{
 		object o = null;
@@ -394,8 +415,8 @@ public class FairyGUI_GComboBoxWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FairyGUI.GComboBox obj = (FairyGUI.GComboBox)o;
-			string ret = obj.popupDirection;
-			LuaDLL.lua_pushstring(L, ret);
+			FairyGUI.PopupDirection ret = obj.popupDirection;
+			ToLua.Push(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -515,6 +536,25 @@ public class FairyGUI_GComboBoxWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index titleColor on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_titleFontSize(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.GComboBox obj = (FairyGUI.GComboBox)o;
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+			obj.titleFontSize = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index titleFontSize on a nil value");
 		}
 	}
 
@@ -641,7 +681,7 @@ public class FairyGUI_GComboBoxWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FairyGUI.GComboBox obj = (FairyGUI.GComboBox)o;
-			string arg0 = ToLua.CheckString(L, 2);
+			FairyGUI.PopupDirection arg0 = (FairyGUI.PopupDirection)ToLua.CheckObject(L, 2, typeof(FairyGUI.PopupDirection));
 			obj.popupDirection = arg0;
 			return 0;
 		}

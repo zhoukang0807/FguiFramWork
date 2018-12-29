@@ -8,8 +8,8 @@ public class FairyGUI_GButtonWrap
 	{
 		L.BeginClass(typeof(FairyGUI.GButton), typeof(FairyGUI.GComponent));
 		L.RegFunction("FireClick", FireClick);
+		L.RegFunction("GetTextField", GetTextField);
 		L.RegFunction("HandleControllerChanged", HandleControllerChanged);
-		L.RegFunction("ConstructFromXML", ConstructFromXML);
 		L.RegFunction("Setup_AfterAdd", Setup_AfterAdd);
 		L.RegFunction("New", _CreateFairyGUI_GButton);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -31,6 +31,7 @@ public class FairyGUI_GButtonWrap
 		L.RegVar("selectedIcon", get_selectedIcon, set_selectedIcon);
 		L.RegVar("selectedTitle", get_selectedTitle, set_selectedTitle);
 		L.RegVar("titleColor", get_titleColor, set_titleColor);
+		L.RegVar("color", get_color, set_color);
 		L.RegVar("titleFontSize", get_titleFontSize, set_titleFontSize);
 		L.RegVar("selected", get_selected, set_selected);
 		L.RegVar("mode", get_mode, set_mode);
@@ -80,6 +81,23 @@ public class FairyGUI_GButtonWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetTextField(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			FairyGUI.GButton obj = (FairyGUI.GButton)ToLua.CheckObject<FairyGUI.GButton>(L, 1);
+			FairyGUI.GTextField o = obj.GetTextField();
+			ToLua.PushObject(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int HandleControllerChanged(IntPtr L)
 	{
 		try
@@ -97,31 +115,15 @@ public class FairyGUI_GButtonWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ConstructFromXML(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			FairyGUI.GButton obj = (FairyGUI.GButton)ToLua.CheckObject<FairyGUI.GButton>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.ConstructFromXML(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int Setup_AfterAdd(IntPtr L)
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 3);
 			FairyGUI.GButton obj = (FairyGUI.GButton)ToLua.CheckObject<FairyGUI.GButton>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup_AfterAdd(arg0);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			obj.Setup_AfterAdd(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)
@@ -139,8 +141,8 @@ public class FairyGUI_GButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FairyGUI.GButton obj = (FairyGUI.GButton)o;
-			UnityEngine.AudioClip ret = obj.sound;
-			ToLua.PushSealed(L, ret);
+			FairyGUI.NAudioClip ret = obj.sound;
+			ToLua.PushObject(L, ret);
 			return 1;
 		}
 		catch(Exception e)
@@ -443,6 +445,25 @@ public class FairyGUI_GButtonWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_color(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.GButton obj = (FairyGUI.GButton)o;
+			UnityEngine.Color ret = obj.color;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index color on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_titleFontSize(IntPtr L)
 	{
 		object o = null;
@@ -527,7 +548,7 @@ public class FairyGUI_GButtonWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FairyGUI.GButton obj = (FairyGUI.GButton)o;
-			UnityEngine.AudioClip arg0 = (UnityEngine.AudioClip)ToLua.CheckObject(L, 2, typeof(UnityEngine.AudioClip));
+			FairyGUI.NAudioClip arg0 = (FairyGUI.NAudioClip)ToLua.CheckObject<FairyGUI.NAudioClip>(L, 2);
 			obj.sound = arg0;
 			return 0;
 		}
@@ -705,6 +726,25 @@ public class FairyGUI_GButtonWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index titleColor on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_color(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.GButton obj = (FairyGUI.GButton)o;
+			UnityEngine.Color arg0 = ToLua.ToColor(L, 2);
+			obj.color = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index color on a nil value");
 		}
 	}
 

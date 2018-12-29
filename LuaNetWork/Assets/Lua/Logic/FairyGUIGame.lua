@@ -3,17 +3,18 @@ require "Logic/CtrlManager"
 require "Common/functions"
 require "Controller/PromptCtrl"
 require "FairyGUI" 
+require "Controller/SceneMange" 
 FairyGUIGame = {};
 local this = FairyGUIGame;
 
 local game;
 local transform;
 local gameObject;
-local WWW = UnityEngine.WWW;
+local WWW = UnityEngine.Instance;
 
 local DesAB = {};
 local ResAB = {};
-
+SceneMange = SceneMange.New()
 function FairyGUIGame.InitViewPanels()
 	for i = 1, #FairyUIs do
 		require("Fairy/" .. tostring(FairyUIs[i]))
@@ -22,10 +23,15 @@ end
 
 --初始化完成，发送链接服务器信息--
 function FairyGUIGame.OnInitOK()
-	AppConst.SocketPort = 2012;
+	AppConst.SocketPort = 3563;
 	AppConst.SocketAddress = "127.0.0.1";
 	networkMgr:SendConnect();
 	
+	-- CtrlManager.Init();
+    -- local ctrl = CtrlManager.GetCtrl(CtrlNames.Prompt);
+    -- if ctrl ~= nil and AppConst.ExampleMode == 1 then
+    --     ctrl:Awake();
+    -- end 
 	--注册LuaView--
 	this.InitViewPanels(); 
 	
@@ -95,7 +101,7 @@ end
 
 function FairyGUIGame.OpenView() 
 	CtrlManager.Init();
-	local ctrl = CtrlManager.GetCtrl(CtrlNames.Loading);
+	local ctrl = CtrlManager.GetCtrl(CtrlNames.Loging);
 	if ctrl ~= nil and AppConst.ExampleMode == 1 then
 		ctrl:Awake();
 	end

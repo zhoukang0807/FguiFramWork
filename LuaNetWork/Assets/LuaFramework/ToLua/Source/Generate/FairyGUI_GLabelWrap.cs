@@ -7,7 +7,7 @@ public class FairyGUI_GLabelWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FairyGUI.GLabel), typeof(FairyGUI.GComponent));
-		L.RegFunction("ConstructFromXML", ConstructFromXML);
+		L.RegFunction("GetTextField", GetTextField);
 		L.RegFunction("Setup_AfterAdd", Setup_AfterAdd);
 		L.RegFunction("New", _CreateFairyGUI_GLabel);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -46,15 +46,15 @@ public class FairyGUI_GLabelWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ConstructFromXML(IntPtr L)
+	static int GetTextField(IntPtr L)
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 1);
 			FairyGUI.GLabel obj = (FairyGUI.GLabel)ToLua.CheckObject<FairyGUI.GLabel>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.ConstructFromXML(arg0);
-			return 0;
+			FairyGUI.GTextField o = obj.GetTextField();
+			ToLua.PushObject(L, o);
+			return 1;
 		}
 		catch (Exception e)
 		{
@@ -67,10 +67,11 @@ public class FairyGUI_GLabelWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 3);
 			FairyGUI.GLabel obj = (FairyGUI.GLabel)ToLua.CheckObject<FairyGUI.GLabel>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup_AfterAdd(arg0);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			obj.Setup_AfterAdd(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)

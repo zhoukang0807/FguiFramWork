@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using LuaInterface;
 using System.Reflection;
 using System.IO;
-
+using FairyGUI;
 
 namespace LuaFramework {
     public class GameManager : Manager {
@@ -70,10 +70,16 @@ namespace LuaFramework {
 
             //释放所有文件到数据目录
             string[] files = File.ReadAllLines(outfile);
+            //解包进度
+            int count = 0;
+            CreateLoading.setTitle("正在解压缩...");
             foreach (var file in files) {
                 string[] fs = file.Split('|');
                 infile = resPath + fs[0];  //
                 outfile = dataPath + fs[0];
+                //解包进度
+                count++;
+                CreateLoading.setProgress(count/((double)files.Length/100));
 
                 message = "正在解包文件:>" + fs[0];
                 Debug.Log("正在解包文件:>" + infile);
@@ -84,12 +90,11 @@ namespace LuaFramework {
 
                 if (Application.platform == RuntimePlatform.Android) {
                     WWW www = new WWW(infile);
-                    yield return www;
-
+                    yield return www; 
                     if (www.isDone) {
                         File.WriteAllBytes(outfile, www.bytes);
                     }
-                    yield return 0;
+                    yield return 0;  
                 } else {
                     if (File.Exists(outfile)) {
                         File.Delete(outfile);
@@ -97,8 +102,12 @@ namespace LuaFramework {
                     File.Copy(infile, outfile, true);
                 }
                 yield return new WaitForEndOfFrame();
-            }
+            } 
             message = "解包完成!!!";
+            //解包进度
+            CreateLoading.setTitle("解包完成...");
+            CreateLoading.setProgress(100);
+
             facade.SendMessageCommand(NotiConst.UPDATE_MESSAGE, message);
             yield return new WaitForSeconds(0.1f);
 
@@ -115,6 +124,7 @@ namespace LuaFramework {
                 OnResourceInited();
                 yield break;
             }
+            CreateLoading.setTitle("正在更新..."); 
             string dataPath = Util.DataPath;  //数据目录
             string url = AppConst.WebUrl;
             string message = string.Empty;
@@ -133,11 +143,11 @@ namespace LuaFramework {
             File.WriteAllBytes(dataPath + "files.txt", www.bytes);
             string filesText = www.text;
             string[] files = filesText.Split('\n');
-
-            for (int i = 0; i < files.Length; i++) {
+            for (int i = 0; i < files.Length; i++) { 
                 if (string.IsNullOrEmpty(files[i])) continue;
                 string[] keyValue = files[i].Split('|');
                 string f = keyValue[0];
+                //此处显示加载状态
                 string localfile = (dataPath + f).Trim();
                 string path = Path.GetDirectoryName(localfile);
                 if (!Directory.Exists(path)) {
@@ -155,6 +165,7 @@ namespace LuaFramework {
                     Debug.Log(fileUrl);
                     message = "downloading>>" + fileUrl;
                     facade.SendMessageCommand(NotiConst.UPDATE_MESSAGE, message);
+                    CreateLoading.setProgress(0);
                     /*
                     www = new WWW(fileUrl); yield return www;
                     if (www.error != null) {
@@ -169,10 +180,10 @@ namespace LuaFramework {
                 }
             }
             yield return new WaitForEndOfFrame();
-
             message = "更新完成!!";
+            CreateLoading.setTitle("更新完成...");
             facade.SendMessageCommand(NotiConst.UPDATE_MESSAGE, message);
-
+            yield return new WaitForSeconds(0.1f);
             OnResourceInited();
         }
 
@@ -231,13 +242,16 @@ namespace LuaFramework {
         }
 
         void OnInitialize() {
+            //此处无更新和解压缩时此处来设置载入界面不需要加载
+            CreateLoading.need = false;
+            CreateLoading.Destory();
+                  
             LuaManager.InitStart();
            // LuaManager.DoFile("Logic/Game");         //加载游戏
             LuaManager.DoFile("Logic/FairyGUIGame");         //加载游戏
             LuaManager.DoFile("Logic/Network");      //加载网络
             NetManager.OnInit();                     //初始化网络
             Util.CallMethod("FairyGUIGame", "OnInitOK");     //初始化完成
-
             initialize = true;
 
             //类对象池测试

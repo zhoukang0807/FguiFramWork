@@ -128,6 +128,7 @@ public class FairyGUI_GObjectWrap
 		L.RegVar("icon", get_icon, set_icon);
 		L.RegVar("draggable", get_draggable, set_draggable);
 		L.RegVar("dragging", get_dragging, null);
+		L.RegVar("isDisposed", get_isDisposed, null);
 		L.RegVar("asImage", get_asImage, null);
 		L.RegVar("asCom", get_asCom, null);
 		L.RegVar("asButton", get_asButton, null);
@@ -775,10 +776,11 @@ public class FairyGUI_GObjectWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 3);
 			FairyGUI.GObject obj = (FairyGUI.GObject)ToLua.CheckObject<FairyGUI.GObject>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup_BeforeAdd(arg0);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			obj.Setup_BeforeAdd(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)
@@ -792,10 +794,11 @@ public class FairyGUI_GObjectWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 3);
 			FairyGUI.GObject obj = (FairyGUI.GObject)ToLua.CheckObject<FairyGUI.GObject>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup_AfterAdd(arg0);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			obj.Setup_AfterAdd(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)
@@ -813,7 +816,7 @@ public class FairyGUI_GObjectWrap
 			FairyGUI.GObject obj = (FairyGUI.GObject)ToLua.CheckObject<FairyGUI.GObject>(L, 1);
 			UnityEngine.Vector2 arg0 = ToLua.ToVector2(L, 2);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-			DG.Tweening.Tweener o = obj.TweenMove(arg0, arg1);
+			FairyGUI.GTweener o = obj.TweenMove(arg0, arg1);
 			ToLua.PushObject(L, o);
 			return 1;
 		}
@@ -832,7 +835,7 @@ public class FairyGUI_GObjectWrap
 			FairyGUI.GObject obj = (FairyGUI.GObject)ToLua.CheckObject<FairyGUI.GObject>(L, 1);
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-			DG.Tweening.Tweener o = obj.TweenMoveX(arg0, arg1);
+			FairyGUI.GTweener o = obj.TweenMoveX(arg0, arg1);
 			ToLua.PushObject(L, o);
 			return 1;
 		}
@@ -851,7 +854,7 @@ public class FairyGUI_GObjectWrap
 			FairyGUI.GObject obj = (FairyGUI.GObject)ToLua.CheckObject<FairyGUI.GObject>(L, 1);
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-			DG.Tweening.Tweener o = obj.TweenMoveY(arg0, arg1);
+			FairyGUI.GTweener o = obj.TweenMoveY(arg0, arg1);
 			ToLua.PushObject(L, o);
 			return 1;
 		}
@@ -870,7 +873,7 @@ public class FairyGUI_GObjectWrap
 			FairyGUI.GObject obj = (FairyGUI.GObject)ToLua.CheckObject<FairyGUI.GObject>(L, 1);
 			UnityEngine.Vector2 arg0 = ToLua.ToVector2(L, 2);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-			DG.Tweening.Tweener o = obj.TweenScale(arg0, arg1);
+			FairyGUI.GTweener o = obj.TweenScale(arg0, arg1);
 			ToLua.PushObject(L, o);
 			return 1;
 		}
@@ -889,7 +892,7 @@ public class FairyGUI_GObjectWrap
 			FairyGUI.GObject obj = (FairyGUI.GObject)ToLua.CheckObject<FairyGUI.GObject>(L, 1);
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-			DG.Tweening.Tweener o = obj.TweenScaleX(arg0, arg1);
+			FairyGUI.GTweener o = obj.TweenScaleX(arg0, arg1);
 			ToLua.PushObject(L, o);
 			return 1;
 		}
@@ -908,7 +911,7 @@ public class FairyGUI_GObjectWrap
 			FairyGUI.GObject obj = (FairyGUI.GObject)ToLua.CheckObject<FairyGUI.GObject>(L, 1);
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-			DG.Tweening.Tweener o = obj.TweenScaleY(arg0, arg1);
+			FairyGUI.GTweener o = obj.TweenScaleY(arg0, arg1);
 			ToLua.PushObject(L, o);
 			return 1;
 		}
@@ -927,7 +930,7 @@ public class FairyGUI_GObjectWrap
 			FairyGUI.GObject obj = (FairyGUI.GObject)ToLua.CheckObject<FairyGUI.GObject>(L, 1);
 			UnityEngine.Vector2 arg0 = ToLua.ToVector2(L, 2);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-			DG.Tweening.Tweener o = obj.TweenResize(arg0, arg1);
+			FairyGUI.GTweener o = obj.TweenResize(arg0, arg1);
 			ToLua.PushObject(L, o);
 			return 1;
 		}
@@ -946,7 +949,7 @@ public class FairyGUI_GObjectWrap
 			FairyGUI.GObject obj = (FairyGUI.GObject)ToLua.CheckObject<FairyGUI.GObject>(L, 1);
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-			DG.Tweening.Tweener o = obj.TweenFade(arg0, arg1);
+			FairyGUI.GTweener o = obj.TweenFade(arg0, arg1);
 			ToLua.PushObject(L, o);
 			return 1;
 		}
@@ -965,7 +968,7 @@ public class FairyGUI_GObjectWrap
 			FairyGUI.GObject obj = (FairyGUI.GObject)ToLua.CheckObject<FairyGUI.GObject>(L, 1);
 			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-			DG.Tweening.Tweener o = obj.TweenRotate(arg0, arg1);
+			FairyGUI.GTweener o = obj.TweenRotate(arg0, arg1);
 			ToLua.PushObject(L, o);
 			return 1;
 		}
@@ -2525,6 +2528,25 @@ public class FairyGUI_GObjectWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index dragging on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_isDisposed(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.GObject obj = (FairyGUI.GObject)o;
+			bool ret = obj.isDisposed;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index isDisposed on a nil value");
 		}
 	}
 

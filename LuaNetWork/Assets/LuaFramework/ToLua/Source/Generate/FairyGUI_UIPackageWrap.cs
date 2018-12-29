@@ -22,16 +22,20 @@ public class FairyGUI_UIPackageWrap
 		L.RegFunction("GetItemByURL", GetItemByURL);
 		L.RegFunction("NormalizeURL", NormalizeURL);
 		L.RegFunction("SetStringsSource", SetStringsSource);
-		L.RegFunction("GetPixelHitTestData", GetPixelHitTestData);
+		L.RegFunction("LoadAllAssets", LoadAllAssets);
+		L.RegFunction("UnloadAssets", UnloadAssets);
+		L.RegFunction("ReloadAssets", ReloadAssets);
 		L.RegFunction("GetItems", GetItems);
 		L.RegFunction("GetItem", GetItem);
 		L.RegFunction("GetItemByName", GetItemByName);
 		L.RegFunction("New", _CreateFairyGUI_UIPackage);
 		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegVar("URL_PREFIX", get_URL_PREFIX, null);
 		L.RegVar("id", get_id, null);
 		L.RegVar("name", get_name, null);
 		L.RegVar("assetPath", get_assetPath, null);
 		L.RegVar("customId", get_customId, set_customId);
+		L.RegVar("resBundle", get_resBundle, null);
 		L.RegFunction("LoadResource", FairyGUI_UIPackage_LoadResource);
 		L.RegFunction("CreateObjectCallback", FairyGUI_UIPackage_CreateObjectCallback);
 		L.EndClass();
@@ -124,14 +128,6 @@ public class FairyGUI_UIPackageWrap
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 2 && TypeChecker.CheckTypes<UnityEngine.AssetBundle, bool>(L, 1))
-			{
-				UnityEngine.AssetBundle arg0 = (UnityEngine.AssetBundle)ToLua.ToObject(L, 1);
-				bool arg1 = LuaDLL.lua_toboolean(L, 2);
-				FairyGUI.UIPackage o = FairyGUI.UIPackage.AddPackage(arg0, arg1);
-				ToLua.PushObject(L, o);
-				return 1;
-			}
 			else if (count == 2 && TypeChecker.CheckTypes<UnityEngine.AssetBundle, UnityEngine.AssetBundle>(L, 1))
 			{
 				UnityEngine.AssetBundle arg0 = (UnityEngine.AssetBundle)ToLua.ToObject(L, 1);
@@ -158,25 +154,6 @@ public class FairyGUI_UIPackageWrap
 				ToLua.PushObject(L, o);
 				return 1;
 			}
-			else if (count == 3 && TypeChecker.CheckTypes<UnityEngine.AssetBundle, UnityEngine.AssetBundle, bool>(L, 1))
-			{
-				UnityEngine.AssetBundle arg0 = (UnityEngine.AssetBundle)ToLua.ToObject(L, 1);
-				UnityEngine.AssetBundle arg1 = (UnityEngine.AssetBundle)ToLua.ToObject(L, 2);
-				bool arg2 = LuaDLL.lua_toboolean(L, 3);
-				FairyGUI.UIPackage o = FairyGUI.UIPackage.AddPackage(arg0, arg1, arg2);
-				ToLua.PushObject(L, o);
-				return 1;
-			}
-			else if (count == 4)
-			{
-				UnityEngine.AssetBundle arg0 = (UnityEngine.AssetBundle)ToLua.CheckObject<UnityEngine.AssetBundle>(L, 1);
-				UnityEngine.AssetBundle arg1 = (UnityEngine.AssetBundle)ToLua.CheckObject<UnityEngine.AssetBundle>(L, 2);
-				string arg2 = ToLua.CheckString(L, 3);
-				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
-				FairyGUI.UIPackage o = FairyGUI.UIPackage.AddPackage(arg0, arg1, arg2, arg3);
-				ToLua.PushObject(L, o);
-				return 1;
-			}
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: FairyGUI.UIPackage.AddPackage");
@@ -193,25 +170,10 @@ public class FairyGUI_UIPackageWrap
 	{
 		try
 		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 1)
-			{
-				string arg0 = ToLua.CheckString(L, 1);
-				FairyGUI.UIPackage.RemovePackage(arg0);
-				return 0;
-			}
-			else if (count == 2)
-			{
-				string arg0 = ToLua.CheckString(L, 1);
-				bool arg1 = LuaDLL.luaL_checkboolean(L, 2);
-				FairyGUI.UIPackage.RemovePackage(arg0, arg1);
-				return 0;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: FairyGUI.UIPackage.RemovePackage");
-			}
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			FairyGUI.UIPackage.RemovePackage(arg0);
+			return 0;
 		}
 		catch (Exception e)
 		{
@@ -224,23 +186,9 @@ public class FairyGUI_UIPackageWrap
 	{
 		try
 		{
-			int count = LuaDLL.lua_gettop(L);
-
-			if (count == 0)
-			{
-				FairyGUI.UIPackage.RemoveAllPackages();
-				return 0;
-			}
-			else if (count == 1)
-			{
-				bool arg0 = LuaDLL.luaL_checkboolean(L, 1);
-				FairyGUI.UIPackage.RemoveAllPackages(arg0);
-				return 0;
-			}
-			else
-			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: FairyGUI.UIPackage.RemoveAllPackages");
-			}
+			ToLua.CheckArgsCount(L, 0);
+			FairyGUI.UIPackage.RemoveAllPackages();
+			return 0;
 		}
 		catch (Exception e)
 		{
@@ -518,16 +466,61 @@ public class FairyGUI_UIPackageWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int GetPixelHitTestData(IntPtr L)
+	static int LoadAllAssets(IntPtr L)
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 1);
 			FairyGUI.UIPackage obj = (FairyGUI.UIPackage)ToLua.CheckObject<FairyGUI.UIPackage>(L, 1);
-			string arg0 = ToLua.CheckString(L, 2);
-			FairyGUI.PixelHitTestData o = obj.GetPixelHitTestData(arg0);
-			ToLua.PushObject(L, o);
-			return 1;
+			obj.LoadAllAssets();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int UnloadAssets(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			FairyGUI.UIPackage obj = (FairyGUI.UIPackage)ToLua.CheckObject<FairyGUI.UIPackage>(L, 1);
+			obj.UnloadAssets();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ReloadAssets(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				FairyGUI.UIPackage obj = (FairyGUI.UIPackage)ToLua.CheckObject<FairyGUI.UIPackage>(L, 1);
+				obj.ReloadAssets();
+				return 0;
+			}
+			else if (count == 2)
+			{
+				FairyGUI.UIPackage obj = (FairyGUI.UIPackage)ToLua.CheckObject<FairyGUI.UIPackage>(L, 1);
+				UnityEngine.AssetBundle arg0 = (UnityEngine.AssetBundle)ToLua.CheckObject<UnityEngine.AssetBundle>(L, 2);
+				obj.ReloadAssets(arg0);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: FairyGUI.UIPackage.ReloadAssets");
+			}
 		}
 		catch (Exception e)
 		{
@@ -580,6 +573,20 @@ public class FairyGUI_UIPackageWrap
 			string arg0 = ToLua.CheckString(L, 2);
 			FairyGUI.PackageItem o = obj.GetItemByName(arg0);
 			ToLua.PushObject(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_URL_PREFIX(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, FairyGUI.UIPackage.URL_PREFIX);
 			return 1;
 		}
 		catch (Exception e)
@@ -661,6 +668,25 @@ public class FairyGUI_UIPackageWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index customId on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_resBundle(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.UIPackage obj = (FairyGUI.UIPackage)o;
+			UnityEngine.AssetBundle ret = obj.resBundle;
+			ToLua.Push(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index resBundle on a nil value");
 		}
 	}
 

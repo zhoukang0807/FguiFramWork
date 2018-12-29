@@ -1,0 +1,43 @@
+ManifestFileVersion: 0
+CRC: 2543828785
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2cdd3b7de87a2f9f9c8512987e266649
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: fa6c012ba72af92101131e717e434c5f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 50
+  Script: {instanceID: 0}
+- Class: 61
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: e7cba2ba2cf022049a5e8ee35a67ef48, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/LuaFramework/Resources/Preps/prep/aa.prefab
+- Assets/LuaFramework/Resources/Preps/prep/rolepanel.prefab
+- Assets/LuaFramework/Resources/Preps/prep/role.prefab
+Dependencies:
+- F:/project/FguiFramWork/LuaNetWork/Assets/StreamingAssets/role_asset.unity3d

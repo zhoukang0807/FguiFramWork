@@ -24,38 +24,28 @@ end
 
 function PromptCtrl.Awake()
 	logWarn("PromptCtrl.Awake--->>");
-	panelMgr:CreatePanel('Prompt', this.OnCreate);
+	panelMgr:CreatePanel('role', this.OnCreate);
 end
 
 --启动事件--
 function PromptCtrl.OnCreate(obj)
 	gameObject = obj;
 	transform = obj.transform;
-
-	panel = transform:GetComponent('UIPanel');
-	prompt = transform:GetComponent('LuaBehaviour');
-	logWarn("Start lua--->>"..gameObject.name);
-
-	prompt:AddClick(PromptPanel.btnOpen, this.OnClick);
-	resMgr:LoadPrefab('prompt', { 'PromptItem' }, this.InitPanel);
-end
+	transform.localScale = Vector3.New(0,0,0);
+	logWarn("PromptCtrl.OnCreate--->>");
+	resMgr:LoadPrefab('role', { 'role' }, this.InitPanel);
+end 
 
 --初始化面板--
 function PromptCtrl.InitPanel(objs)
-	local count = 100; 
-	local parent = PromptPanel.gridParent;
+	local count = 1;  
 	for i = 1, count do
-		local go = newObject(objs[0]);
-		go.name = 'Item'..tostring(i);
-		go.transform:SetParent(parent);
+		local go = newObject(objs[0]);  
 		go.transform.localScale = Vector3.one;
-		go.transform.localPosition = Vector3.zero;
-        prompt:AddClick(go, this.OnItemClick);
-
-	    local label = go.transform:Find('Text');
-	    label:GetComponent('Text').text = tostring(i);
+		go.transform.localPosition = Vector3.zero; 
 	end
 end
+ 
 
 --滚动项单击--
 function PromptCtrl.OnItemClick(go)

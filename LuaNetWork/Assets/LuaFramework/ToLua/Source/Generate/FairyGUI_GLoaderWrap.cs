@@ -8,6 +8,7 @@ public class FairyGUI_GLoaderWrap
 	{
 		L.BeginClass(typeof(FairyGUI.GLoader), typeof(FairyGUI.GObject));
 		L.RegFunction("Dispose", Dispose);
+		L.RegFunction("Advance", Advance);
 		L.RegFunction("Setup_BeforeAdd", Setup_BeforeAdd);
 		L.RegFunction("New", _CreateFairyGUI_GLoader);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -21,6 +22,8 @@ public class FairyGUI_GLoaderWrap
 		L.RegVar("autoSize", get_autoSize, set_autoSize);
 		L.RegVar("playing", get_playing, set_playing);
 		L.RegVar("frame", get_frame, set_frame);
+		L.RegVar("timeScale", get_timeScale, set_timeScale);
+		L.RegVar("ignoreEngineTimeScale", get_ignoreEngineTimeScale, set_ignoreEngineTimeScale);
 		L.RegVar("material", get_material, set_material);
 		L.RegVar("shader", get_shader, set_shader);
 		L.RegVar("color", get_color, set_color);
@@ -78,14 +81,32 @@ public class FairyGUI_GLoaderWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Setup_BeforeAdd(IntPtr L)
+	static int Advance(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			FairyGUI.GLoader obj = (FairyGUI.GLoader)ToLua.CheckObject<FairyGUI.GLoader>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup_BeforeAdd(arg0);
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.Advance(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Setup_BeforeAdd(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			FairyGUI.GLoader obj = (FairyGUI.GLoader)ToLua.CheckObject<FairyGUI.GLoader>(L, 1);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			obj.Setup_BeforeAdd(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)
@@ -281,6 +302,44 @@ public class FairyGUI_GLoaderWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index frame on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_timeScale(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.GLoader obj = (FairyGUI.GLoader)o;
+			float ret = obj.timeScale;
+			LuaDLL.lua_pushnumber(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index timeScale on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_ignoreEngineTimeScale(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.GLoader obj = (FairyGUI.GLoader)o;
+			bool ret = obj.ignoreEngineTimeScale;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ignoreEngineTimeScale on a nil value");
 		}
 	}
 
@@ -718,6 +777,44 @@ public class FairyGUI_GLoaderWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index frame on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_timeScale(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.GLoader obj = (FairyGUI.GLoader)o;
+			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
+			obj.timeScale = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index timeScale on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_ignoreEngineTimeScale(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.GLoader obj = (FairyGUI.GLoader)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.ignoreEngineTimeScale = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ignoreEngineTimeScale on a nil value");
 		}
 	}
 

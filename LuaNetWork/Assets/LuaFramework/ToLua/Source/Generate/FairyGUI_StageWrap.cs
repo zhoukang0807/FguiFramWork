@@ -8,6 +8,7 @@ public class FairyGUI_StageWrap
 	{
 		L.BeginClass(typeof(FairyGUI.Stage), typeof(FairyGUI.Container));
 		L.RegFunction("Instantiate", Instantiate);
+		L.RegFunction("Dispose", Dispose);
 		L.RegFunction("GetTouchPosition", GetTouchPosition);
 		L.RegFunction("GetAllTouch", GetAllTouch);
 		L.RegFunction("ResetInputState", ResetInputState);
@@ -73,6 +74,22 @@ public class FairyGUI_StageWrap
 		{
 			ToLua.CheckArgsCount(L, 0);
 			FairyGUI.Stage.Instantiate();
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Dispose(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			FairyGUI.Stage obj = (FairyGUI.Stage)ToLua.CheckObject<FairyGUI.Stage>(L, 1);
+			obj.Dispose();
 			return 0;
 		}
 		catch (Exception e)

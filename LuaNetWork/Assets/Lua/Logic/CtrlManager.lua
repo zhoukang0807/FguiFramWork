@@ -1,7 +1,7 @@
 require "Common/define"
 require "Controller/PromptCtrl"
 require "Controller/MessageCtrl"
-require "Fairy/LoadingCtrl"
+require "Fairy/LogingCtrl"
 
 CtrlManager = {};
 local this = CtrlManager;
@@ -9,7 +9,7 @@ local ctrlList = {};	--控制器列表--
 
 function CtrlManager.Init()
 	logWarn("CtrlManager.Init----->>>");
-	ctrlList[CtrlNames.Loading] = LoadingCtrl.New();
+	ctrlList[CtrlNames.Loging] = LogingCtrl.New();
 	-- ctrlList[CtrlNames.Prompt] = PromptCtrl.New();
 	-- ctrlList[CtrlNames.Message] = MessageCtrl.New();
 	return this;

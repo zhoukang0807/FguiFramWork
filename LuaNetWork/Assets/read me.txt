@@ -1,0 +1,6 @@
+Hello and thank you for your purchase.
+
+There are twelve different ground textures which I have added to a standard shader.
+Ive set the tiling to three and you can change it in the Inspector.
+
+All the texture images are 1024*1024 TGA

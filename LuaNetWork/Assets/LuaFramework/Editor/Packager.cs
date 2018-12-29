@@ -186,13 +186,26 @@ public class Packager {
         if (!Directory.Exists(resPath)) Directory.CreateDirectory(resPath);
 
         AddBuildMap("prompt" + AppConst.ExtName, "*.prefab", "Assets/LuaFramework/Examples/Builds/Prompt");
-        AddBuildMap("message" + AppConst.ExtName, "*.prefab", "Assets/LuaFramework/Examples/Builds/Message");
+        AddBuildMap("message" + AppConst.ExtName, "*.prefab", "Assets/LuaFramework/Examples/Builds/Message"); 
 
         AddBuildMap("prompt_asset" + AppConst.ExtName, "*.png", "Assets/LuaFramework/Examples/Textures/Prompt");
         AddBuildMap("shared_asset" + AppConst.ExtName, "*.png", "Assets/LuaFramework/Examples/Textures/Shared");
 
-        AddBuildMap("desc_loadPanel" + AppConst.ExtName, "*.bytes", "Assets/LuaFramework/Resources/FGUI/Des/loadPanel");
-        AddBuildMap("res_loadPanel" + AppConst.ExtName, "*.bytes|*.png", "Assets/LuaFramework/Resources/FGUI/Res/loadPanel"); //*.bytes|
+        AddBuildMap("desc_load" + AppConst.ExtName, "*.bytes", "Assets/LuaFramework/Resources/FGUI/Des/load");
+        AddBuildMap("res_load" + AppConst.ExtName, "*.bytes|*.png", "Assets/LuaFramework/Resources/FGUI/Res/load"); //*.bytes|
+
+        AddBuildMap("desc_talk" + AppConst.ExtName, "*.bytes", "Assets/LuaFramework/Resources/FGUI/Des/talk");
+        AddBuildMap("res_talk" + AppConst.ExtName, "*.bytes|*.png", "Assets/LuaFramework/Resources/FGUI/Res/talk"); //*.bytes|
+
+
+        AddBuildMap("role" + AppConst.ExtName, "*.prefab", "Assets/LuaFramework/Resources/Preps/prep");
+        AddBuildMap("role_asset" + AppConst.ExtName, "*.controller|*.png|*.anim", "Assets/LuaFramework/Resources/Preps/action");
+
+        AddBuildMap("desc_loginPanel" + AppConst.ExtName, "*.bytes", "Assets/LuaFramework/Resources/FGUI/Des/loginPanel");
+        AddBuildMap("res_loginPanel" + AppConst.ExtName, "*.bytes|*.png|*.mp3", "Assets/LuaFramework/Resources/FGUI/Res/loginPanel"); //*.bytes|        
+
+        AddBuildMap("desc_jumpscene" + AppConst.ExtName, "*.bytes", "Assets/LuaFramework/Resources/FGUI/Des/jumpscene");
+        AddBuildMap("res_jumpscene" + AppConst.ExtName, "*.bytes|*.png|*.mp3", "Assets/LuaFramework/Resources/FGUI/Res/jumpscene"); //*.bytes|    
 
     }
 

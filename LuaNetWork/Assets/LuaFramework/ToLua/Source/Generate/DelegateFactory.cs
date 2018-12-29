@@ -23,6 +23,9 @@ public class DelegateFactory
 		dict.Add(typeof(System.Action<int>), factory.System_Action_int);
 		dict.Add(typeof(System.Comparison<int>), factory.System_Comparison_int);
 		dict.Add(typeof(System.Func<int,int>), factory.System_Func_int_int);
+		dict.Add(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode>), factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode);
+		dict.Add(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>), factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene);
+		dict.Add(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>), factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
 		dict.Add(typeof(FairyGUI.EventCallback1), factory.FairyGUI_EventCallback1);
 		dict.Add(typeof(FairyGUI.EventCallback0), factory.FairyGUI_EventCallback0);
 		dict.Add(typeof(FairyGUI.ListItemRenderer), factory.FairyGUI_ListItemRenderer);
@@ -50,6 +53,9 @@ public class DelegateFactory
 		DelegateTraits<System.Action<int>>.Init(factory.System_Action_int);
 		DelegateTraits<System.Comparison<int>>.Init(factory.System_Comparison_int);
 		DelegateTraits<System.Func<int,int>>.Init(factory.System_Func_int_int);
+		DelegateTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode>>.Init(factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode);
+		DelegateTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>>.Init(factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene);
+		DelegateTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Init(factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
 		DelegateTraits<FairyGUI.EventCallback1>.Init(factory.FairyGUI_EventCallback1);
 		DelegateTraits<FairyGUI.EventCallback0>.Init(factory.FairyGUI_EventCallback0);
 		DelegateTraits<FairyGUI.ListItemRenderer>.Init(factory.FairyGUI_ListItemRenderer);
@@ -77,6 +83,9 @@ public class DelegateFactory
 		TypeTraits<System.Action<int>>.Init(factory.Check_System_Action_int);
 		TypeTraits<System.Comparison<int>>.Init(factory.Check_System_Comparison_int);
 		TypeTraits<System.Func<int,int>>.Init(factory.Check_System_Func_int_int);
+		TypeTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode>>.Init(factory.Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode);
+		TypeTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>>.Init(factory.Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene);
+		TypeTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Init(factory.Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
 		TypeTraits<FairyGUI.EventCallback1>.Init(factory.Check_FairyGUI_EventCallback1);
 		TypeTraits<FairyGUI.EventCallback0>.Init(factory.Check_FairyGUI_EventCallback0);
 		TypeTraits<FairyGUI.ListItemRenderer>.Init(factory.Check_FairyGUI_ListItemRenderer);
@@ -104,6 +113,9 @@ public class DelegateFactory
 		StackTraits<System.Action<int>>.Push = factory.Push_System_Action_int;
 		StackTraits<System.Comparison<int>>.Push = factory.Push_System_Comparison_int;
 		StackTraits<System.Func<int,int>>.Push = factory.Push_System_Func_int_int;
+		StackTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode>>.Push = factory.Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode;
+		StackTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>>.Push = factory.Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene;
+		StackTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Push = factory.Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene;
 		StackTraits<FairyGUI.EventCallback1>.Push = factory.Push_FairyGUI_EventCallback1;
 		StackTraits<FairyGUI.EventCallback0>.Push = factory.Push_FairyGUI_EventCallback0;
 		StackTraits<FairyGUI.ListItemRenderer>.Push = factory.Push_FairyGUI_ListItemRenderer;
@@ -583,6 +595,181 @@ public class DelegateFactory
 		ToLua.Push(L, o);
 	}
 
+	class UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode_Event : LuaDelegate
+	{
+		public UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.SceneManagement.Scene param0, UnityEngine.SceneManagement.LoadSceneMode param1)
+		{
+			func.BeginPCall();
+			func.PushValue(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.SceneManagement.Scene param0, UnityEngine.SceneManagement.LoadSceneMode param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushValue(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode> UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode> fn = delegate(UnityEngine.SceneManagement.Scene param0, UnityEngine.SceneManagement.LoadSceneMode param1) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode_Event target = new UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode_Event(func);
+			UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode_Event target = new UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode_Event(func, self);
+			UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode>), L, pos);
+	}
+
+	void Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode(IntPtr L, UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_Event : LuaDelegate
+	{
+		public UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.SceneManagement.Scene param0)
+		{
+			func.BeginPCall();
+			func.PushValue(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.SceneManagement.Scene param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushValue(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene> UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene> fn = delegate(UnityEngine.SceneManagement.Scene param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_Event target = new UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_Event(func);
+			UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_Event target = new UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_Event(func, self);
+			UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene>), L, pos);
+	}
+
+	void Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene(IntPtr L, UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene_Event : LuaDelegate
+	{
+		public UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene_Event(LuaFunction func) : base(func) { }
+		public UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.SceneManagement.Scene param0, UnityEngine.SceneManagement.Scene param1)
+		{
+			func.BeginPCall();
+			func.PushValue(param0);
+			func.PushValue(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.SceneManagement.Scene param0, UnityEngine.SceneManagement.Scene param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushValue(param0);
+			func.PushValue(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene> UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene> fn = delegate(UnityEngine.SceneManagement.Scene param0, UnityEngine.SceneManagement.Scene param1) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene_Event target = new UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene_Event(func);
+			UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene_Event target = new UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene_Event(func, self);
+			UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>), L, pos);
+	}
+
+	void Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene(IntPtr L, UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene> o)
+	{
+		ToLua.Push(L, o);
+	}
+
 	class FairyGUI_EventCallback1_Event : LuaDelegate
 	{
 		public FairyGUI_EventCallback1_Event(LuaFunction func) : base(func) { }
@@ -924,7 +1111,7 @@ public class DelegateFactory
 		public FairyGUI_UIPackage_LoadResource_Event(LuaFunction func) : base(func) { }
 		public FairyGUI_UIPackage_LoadResource_Event(LuaFunction func, LuaTable self) : base(func, self) { }
 
-		public object Call(string param0, string param1, System.Type param2)
+		public object Call(string param0, string param1, System.Type param2, out FairyGUI.DestroyMethod param3)
 		{
 			func.BeginPCall();
 			func.Push(param0);
@@ -932,11 +1119,12 @@ public class DelegateFactory
 			func.Push(param2);
 			func.PCall();
 			object ret = func.CheckVariant();
+			param3 = (FairyGUI.DestroyMethod)func.CheckObject(typeof(FairyGUI.DestroyMethod));
 			func.EndPCall();
 			return ret;
 		}
 
-		public object CallWithSelf(string param0, string param1, System.Type param2)
+		public object CallWithSelf(string param0, string param1, System.Type param2, out FairyGUI.DestroyMethod param3)
 		{
 			func.BeginPCall();
 			func.Push(self);
@@ -945,6 +1133,7 @@ public class DelegateFactory
 			func.Push(param2);
 			func.PCall();
 			object ret = func.CheckVariant();
+			param3 = (FairyGUI.DestroyMethod)func.CheckObject(typeof(FairyGUI.DestroyMethod));
 			func.EndPCall();
 			return ret;
 		}
@@ -954,7 +1143,11 @@ public class DelegateFactory
 	{
 		if (func == null)
 		{
-			FairyGUI.UIPackage.LoadResource fn = delegate(string param0, string param1, System.Type param2) { return null; };
+			FairyGUI.UIPackage.LoadResource fn = delegate(string param0, string param1, System.Type param2, out FairyGUI.DestroyMethod param3) 
+			{
+				param3 = default(FairyGUI.DestroyMethod);
+			return null;			};
+
 			return fn;
 		}
 

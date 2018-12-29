@@ -18,7 +18,7 @@ public class FairyGUI_TimersWrap
 		L.RegFunction("__tostring", ToLua.op_ToString);
 		L.RegVar("repeat", get_repeat, set_repeat);
 		L.RegVar("time", get_time, set_time);
-		L.RegVar("gameObject", get_gameObject, set_gameObject);
+		L.RegVar("catchCallbackExceptions", get_catchCallbackExceptions, set_catchCallbackExceptions);
 		L.RegVar("inst", get_inst, null);
 		L.EndClass();
 	}
@@ -247,11 +247,11 @@ public class FairyGUI_TimersWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_gameObject(IntPtr L)
+	static int get_catchCallbackExceptions(IntPtr L)
 	{
 		try
 		{
-			ToLua.PushSealed(L, FairyGUI.Timers.gameObject);
+			LuaDLL.lua_pushboolean(L, FairyGUI.Timers.catchCallbackExceptions);
 			return 1;
 		}
 		catch (Exception e)
@@ -305,12 +305,12 @@ public class FairyGUI_TimersWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_gameObject(IntPtr L)
+	static int set_catchCallbackExceptions(IntPtr L)
 	{
 		try
 		{
-			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 2, typeof(UnityEngine.GameObject));
-			FairyGUI.Timers.gameObject = arg0;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			FairyGUI.Timers.catchCallbackExceptions = arg0;
 			return 0;
 		}
 		catch (Exception e)

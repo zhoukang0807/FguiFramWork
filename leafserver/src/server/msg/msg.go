@@ -11,3 +11,65 @@ func init() {
 	// 这里我们注册了消息 Hello
 	Processor.Register(&CUser{})
 }
+
+ 
+type PlayerDTO struct{
+	Id int
+	UserName string
+	Direct Vector2
+	Point Vector3
+}
+
+type SessionUser struct{
+	Playes map[int]*PlayerDTO
+	Id      int
+}
+type SessionMove struct{
+	Moves map[int]*MoveDTO
+}
+
+var(
+	SessionUserServ = &SessionUser{make(map[int]*PlayerDTO), 0}
+	SessionMoveServ = &SessionMove{make(map[int]*MoveDTO)}
+)
+
+func (this *SessionUser) AddUser(play *PlayerDTO) []*PlayerDTO {
+	var players []*PlayerDTO
+	var flag bool
+	for _,iteam:=range this.Playes{
+		players = append(players, iteam)
+        if(play.UserName == iteam.UserName){
+			flag = true
+		}
+	}
+	if(!flag){
+		this.Id +=1; 
+		ver3 := new(Vector3) 
+		palydto :=PlayerDTO{
+			Id : this.Id,
+	        Point : *ver3,
+		    UserName : play.UserName,
+		}
+		this.Playes[this.Id] = &palydto;  
+		players = append(players, &palydto)
+	}
+	return players
+}
+func (this *SessionUser) GetPlayes() []*PlayerDTO {
+	var players []*PlayerDTO
+	for _,iteam:=range this.Playes{
+		players = append(players, iteam)
+	}
+	return players
+}
+func (this *SessionMove) GetMoves() []*MoveDTO {
+	var moves []*MoveDTO
+	for _,iteam:=range this.Moves{
+		moves = append(moves, iteam)
+	}
+	return moves
+}
+func (this *SessionMove) SetMoves(move *MoveDTO) *MoveDTO {
+	 this.Moves[move.Id] = move
+	 return move
+}

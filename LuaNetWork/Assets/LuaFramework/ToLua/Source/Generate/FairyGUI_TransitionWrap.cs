@@ -9,24 +9,28 @@ public class FairyGUI_TransitionWrap
 		L.BeginClass(typeof(FairyGUI.Transition), typeof(System.Object));
 		L.RegFunction("Play", Play);
 		L.RegFunction("PlayReverse", PlayReverse);
-		L.RegFunction("ChangeRepeat", ChangeRepeat);
+		L.RegFunction("ChangePlayTimes", ChangePlayTimes);
+		L.RegFunction("SetAutoPlay", SetAutoPlay);
 		L.RegFunction("Stop", Stop);
+		L.RegFunction("SetPaused", SetPaused);
 		L.RegFunction("Dispose", Dispose);
 		L.RegFunction("SetValue", SetValue);
 		L.RegFunction("SetHook", SetHook);
 		L.RegFunction("ClearHooks", ClearHooks);
 		L.RegFunction("SetTarget", SetTarget);
 		L.RegFunction("SetDuration", SetDuration);
+		L.RegFunction("GetLabelTime", GetLabelTime);
+		L.RegFunction("OnTweenStart", OnTweenStart);
+		L.RegFunction("OnTweenUpdate", OnTweenUpdate);
+		L.RegFunction("OnTweenComplete", OnTweenComplete);
 		L.RegFunction("Setup", Setup);
 		L.RegFunction("New", _CreateFairyGUI_Transition);
 		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("autoPlayRepeat", get_autoPlayRepeat, set_autoPlayRepeat);
-		L.RegVar("autoPlayDelay", get_autoPlayDelay, set_autoPlayDelay);
 		L.RegVar("invalidateBatchingEveryFrame", get_invalidateBatchingEveryFrame, set_invalidateBatchingEveryFrame);
 		L.RegVar("name", get_name, null);
-		L.RegVar("autoPlay", get_autoPlay, set_autoPlay);
 		L.RegVar("playing", get_playing, null);
 		L.RegVar("timeScale", get_timeScale, set_timeScale);
+		L.RegVar("ignoreEngineTimeScale", get_ignoreEngineTimeScale, set_ignoreEngineTimeScale);
 		L.EndClass();
 	}
 
@@ -84,6 +88,17 @@ public class FairyGUI_TransitionWrap
 				obj.Play(arg0, arg1, arg2);
 				return 0;
 			}
+			else if (count == 6)
+			{
+				FairyGUI.Transition obj = (FairyGUI.Transition)ToLua.CheckObject<FairyGUI.Transition>(L, 1);
+				int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
+				float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 5);
+				FairyGUI.PlayCompleteCallback arg4 = (FairyGUI.PlayCompleteCallback)ToLua.CheckDelegate<FairyGUI.PlayCompleteCallback>(L, 6);
+				obj.Play(arg0, arg1, arg2, arg3, arg4);
+				return 0;
+			}
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: FairyGUI.Transition.Play");
@@ -136,14 +151,33 @@ public class FairyGUI_TransitionWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ChangeRepeat(IntPtr L)
+	static int ChangePlayTimes(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			FairyGUI.Transition obj = (FairyGUI.Transition)ToLua.CheckObject<FairyGUI.Transition>(L, 1);
 			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
-			obj.ChangeRepeat(arg0);
+			obj.ChangePlayTimes(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetAutoPlay(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 4);
+			FairyGUI.Transition obj = (FairyGUI.Transition)ToLua.CheckObject<FairyGUI.Transition>(L, 1);
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			float arg2 = (float)LuaDLL.luaL_checknumber(L, 4);
+			obj.SetAutoPlay(arg0, arg1, arg2);
 			return 0;
 		}
 		catch (Exception e)
@@ -177,6 +211,23 @@ public class FairyGUI_TransitionWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: FairyGUI.Transition.Stop");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetPaused(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			FairyGUI.Transition obj = (FairyGUI.Transition)ToLua.CheckObject<FairyGUI.Transition>(L, 1);
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.SetPaused(arg0);
+			return 0;
 		}
 		catch (Exception e)
 		{
@@ -289,14 +340,32 @@ public class FairyGUI_TransitionWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Setup(IntPtr L)
+	static int GetLabelTime(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			FairyGUI.Transition obj = (FairyGUI.Transition)ToLua.CheckObject<FairyGUI.Transition>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup(arg0);
+			string arg0 = ToLua.CheckString(L, 2);
+			float o = obj.GetLabelTime(arg0);
+			LuaDLL.lua_pushnumber(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int OnTweenStart(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			FairyGUI.Transition obj = (FairyGUI.Transition)ToLua.CheckObject<FairyGUI.Transition>(L, 1);
+			FairyGUI.GTweener arg0 = (FairyGUI.GTweener)ToLua.CheckObject<FairyGUI.GTweener>(L, 2);
+			obj.OnTweenStart(arg0);
 			return 0;
 		}
 		catch (Exception e)
@@ -306,40 +375,53 @@ public class FairyGUI_TransitionWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_autoPlayRepeat(IntPtr L)
+	static int OnTweenUpdate(IntPtr L)
 	{
-		object o = null;
-
 		try
 		{
-			o = ToLua.ToObject(L, 1);
-			FairyGUI.Transition obj = (FairyGUI.Transition)o;
-			int ret = obj.autoPlayRepeat;
-			LuaDLL.lua_pushinteger(L, ret);
-			return 1;
+			ToLua.CheckArgsCount(L, 2);
+			FairyGUI.Transition obj = (FairyGUI.Transition)ToLua.CheckObject<FairyGUI.Transition>(L, 1);
+			FairyGUI.GTweener arg0 = (FairyGUI.GTweener)ToLua.CheckObject<FairyGUI.GTweener>(L, 2);
+			obj.OnTweenUpdate(arg0);
+			return 0;
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index autoPlayRepeat on a nil value");
+			return LuaDLL.toluaL_exception(L, e);
 		}
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_autoPlayDelay(IntPtr L)
+	static int OnTweenComplete(IntPtr L)
 	{
-		object o = null;
-
 		try
 		{
-			o = ToLua.ToObject(L, 1);
-			FairyGUI.Transition obj = (FairyGUI.Transition)o;
-			float ret = obj.autoPlayDelay;
-			LuaDLL.lua_pushnumber(L, ret);
-			return 1;
+			ToLua.CheckArgsCount(L, 2);
+			FairyGUI.Transition obj = (FairyGUI.Transition)ToLua.CheckObject<FairyGUI.Transition>(L, 1);
+			FairyGUI.GTweener arg0 = (FairyGUI.GTweener)ToLua.CheckObject<FairyGUI.GTweener>(L, 2);
+			obj.OnTweenComplete(arg0);
+			return 0;
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index autoPlayDelay on a nil value");
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Setup(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			FairyGUI.Transition obj = (FairyGUI.Transition)ToLua.CheckObject<FairyGUI.Transition>(L, 1);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			obj.Setup(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
 		}
 	}
 
@@ -382,25 +464,6 @@ public class FairyGUI_TransitionWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_autoPlay(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			FairyGUI.Transition obj = (FairyGUI.Transition)o;
-			bool ret = obj.autoPlay;
-			LuaDLL.lua_pushboolean(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index autoPlay on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int get_playing(IntPtr L)
 	{
 		object o = null;
@@ -439,7 +502,7 @@ public class FairyGUI_TransitionWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_autoPlayRepeat(IntPtr L)
+	static int get_ignoreEngineTimeScale(IntPtr L)
 	{
 		object o = null;
 
@@ -447,32 +510,13 @@ public class FairyGUI_TransitionWrap
 		{
 			o = ToLua.ToObject(L, 1);
 			FairyGUI.Transition obj = (FairyGUI.Transition)o;
-			int arg0 = (int)LuaDLL.luaL_checknumber(L, 2);
-			obj.autoPlayRepeat = arg0;
-			return 0;
+			bool ret = obj.ignoreEngineTimeScale;
+			LuaDLL.lua_pushboolean(L, ret);
+			return 1;
 		}
 		catch(Exception e)
 		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index autoPlayRepeat on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_autoPlayDelay(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			FairyGUI.Transition obj = (FairyGUI.Transition)o;
-			float arg0 = (float)LuaDLL.luaL_checknumber(L, 2);
-			obj.autoPlayDelay = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index autoPlayDelay on a nil value");
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ignoreEngineTimeScale on a nil value");
 		}
 	}
 
@@ -496,25 +540,6 @@ public class FairyGUI_TransitionWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_autoPlay(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			FairyGUI.Transition obj = (FairyGUI.Transition)o;
-			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
-			obj.autoPlay = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index autoPlay on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int set_timeScale(IntPtr L)
 	{
 		object o = null;
@@ -530,6 +555,25 @@ public class FairyGUI_TransitionWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index timeScale on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_ignoreEngineTimeScale(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.Transition obj = (FairyGUI.Transition)o;
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			obj.ignoreEngineTimeScale = arg0;
+			return 0;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index ignoreEngineTimeScale on a nil value");
 		}
 	}
 }

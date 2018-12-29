@@ -24,7 +24,7 @@ func handleHello(args []interface{}) {
 	a := args[1].(gate.Agent)
 
 	// 输出收到的消息的内容
-	log.Debug("hello %v", m.GetEmail())
+	log.Debug("hello %v", m.GetUsername())
 
 	// 给发送者回应一个 Hello 消息
 	a.WriteMsg(m)

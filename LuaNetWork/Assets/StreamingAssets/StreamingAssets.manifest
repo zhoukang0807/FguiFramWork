@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 3146411274
+CRC: 1896681707
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -81,8 +81,33 @@ AssetBundleManifest:
       Name: shared_asset.unity3d
       Dependencies: {}
     Info_25:
-      Name: desc_loadpanel.unity3d
+      Name: desc_load.unity3d
       Dependencies: {}
     Info_26:
-      Name: res_loadpanel.unity3d
+      Name: res_load.unity3d
+      Dependencies: {}
+    Info_27:
+      Name: desc_talk.unity3d
+      Dependencies: {}
+    Info_28:
+      Name: res_talk.unity3d
+      Dependencies: {}
+    Info_29:
+      Name: role.unity3d
+      Dependencies:
+        Dependency_0: role_asset.unity3d
+    Info_30:
+      Name: role_asset.unity3d
+      Dependencies: {}
+    Info_31:
+      Name: desc_loginpanel.unity3d
+      Dependencies: {}
+    Info_32:
+      Name: res_loginpanel.unity3d
+      Dependencies: {}
+    Info_33:
+      Name: desc_jumpscene.unity3d
+      Dependencies: {}
+    Info_34:
+      Name: res_jumpscene.unity3d
       Dependencies: {}

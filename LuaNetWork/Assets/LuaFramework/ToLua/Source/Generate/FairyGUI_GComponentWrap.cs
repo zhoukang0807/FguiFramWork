@@ -55,6 +55,7 @@ public class FairyGUI_GComponentWrap
 		L.RegVar("clipSoftness", get_clipSoftness, set_clipSoftness);
 		L.RegVar("mask", get_mask, set_mask);
 		L.RegVar("reversedMask", get_reversedMask, set_reversedMask);
+		L.RegVar("baseUserData", get_baseUserData, null);
 		L.RegVar("viewWidth", get_viewWidth, set_viewWidth);
 		L.RegVar("viewHeight", get_viewHeight, set_viewHeight);
 		L.EndClass();
@@ -698,10 +699,11 @@ public class FairyGUI_GComponentWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 3);
 			FairyGUI.GComponent obj = (FairyGUI.GComponent)ToLua.CheckObject<FairyGUI.GComponent>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup_AfterAdd(arg0);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			obj.Setup_AfterAdd(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)
@@ -973,6 +975,25 @@ public class FairyGUI_GComponentWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index reversedMask on a nil value");
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_baseUserData(IntPtr L)
+	{
+		object o = null;
+
+		try
+		{
+			o = ToLua.ToObject(L, 1);
+			FairyGUI.GComponent obj = (FairyGUI.GComponent)o;
+			string ret = obj.baseUserData;
+			LuaDLL.lua_pushstring(L, ret);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e, o, "attempt to index baseUserData on a nil value");
 		}
 	}
 

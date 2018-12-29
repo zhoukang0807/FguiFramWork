@@ -7,7 +7,6 @@ public class FairyGUI_GSliderWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FairyGUI.GSlider), typeof(FairyGUI.GComponent));
-		L.RegFunction("ConstructFromXML", ConstructFromXML);
 		L.RegFunction("Setup_AfterAdd", Setup_AfterAdd);
 		L.RegFunction("New", _CreateFairyGUI_GSlider);
 		L.RegFunction("__tostring", ToLua.op_ToString);
@@ -46,31 +45,15 @@ public class FairyGUI_GSliderWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ConstructFromXML(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			FairyGUI.GSlider obj = (FairyGUI.GSlider)ToLua.CheckObject<FairyGUI.GSlider>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.ConstructFromXML(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int Setup_AfterAdd(IntPtr L)
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 3);
 			FairyGUI.GSlider obj = (FairyGUI.GSlider)ToLua.CheckObject<FairyGUI.GSlider>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup_AfterAdd(arg0);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			obj.Setup_AfterAdd(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)

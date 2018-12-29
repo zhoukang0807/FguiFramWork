@@ -51,7 +51,7 @@ namespace LuaFramework {
             GameObject go = Instantiate(prefab) as GameObject;
             go.name = assetName;
             go.layer = LayerMask.NameToLayer("Default");
-            go.transform.SetParent(Parent);
+            //go.transform.SetParent(Parent);
             go.transform.localScale = Vector3.one;
             go.transform.localPosition = Vector3.zero;
             go.AddComponent<LuaBehaviour>();

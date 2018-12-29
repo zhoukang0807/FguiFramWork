@@ -268,7 +268,7 @@ public class FairyGUI_ControllerWrap
 		{
 			ToLua.CheckArgsCount(L, 2);
 			FairyGUI.Controller obj = (FairyGUI.Controller)ToLua.CheckObject<FairyGUI.Controller>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
 			obj.Setup(arg0);
 			return 0;
 		}

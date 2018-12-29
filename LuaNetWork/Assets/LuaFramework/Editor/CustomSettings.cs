@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
 using LuaInterface;
 using LuaFramework;
 using UnityEditor;
-using FairyGUI;
-
+using FairyGUI; 
 using BindType = ToLuaMenu.BindType;
 using UnityEngine.UI;
 using System.Reflection;
@@ -61,10 +61,12 @@ public static class CustomSettings
         //_GT(typeof(TestExport)),
         //_GT(typeof(TestExport.Space)),
         //-------------------------------------------------------------------        
-                        
+        _GT(typeof(SceneManager)),
         _GT(typeof(LuaInjectionStation)),
         _GT(typeof(InjectType)),
-        _GT(typeof(Debugger)).SetNameSpace(null),    
+        _GT(typeof(Debugger)).SetNameSpace(null),
+        _GT(typeof(Collision2D)),
+        
         //lua fgui
         _GT(typeof(EventContext)),
         _GT(typeof(EventDispatcher)),
@@ -79,7 +81,7 @@ public static class CustomSettings
         _GT(typeof(GGroup)),
         _GT(typeof(GImage)),
         _GT(typeof(GLoader)),
-        _GT(typeof(PlayState)),
+        _GT(typeof(UnityEngine.Playables.Playable)),
         _GT(typeof(GMovieClip)),
         _GT(typeof(TextFormat)),
         _GT(typeof(GTextField)),
@@ -156,7 +158,7 @@ public static class CustomSettings
         _GT(typeof(Shader)),        
         _GT(typeof(Renderer)),
         _GT(typeof(WWW)),
-        _GT(typeof(Screen)),        
+        _GT(typeof(Screen)), 
         _GT(typeof(CameraClearFlags)),
         _GT(typeof(AudioClip)),        
         _GT(typeof(AssetBundle)),
@@ -219,7 +221,10 @@ public static class CustomSettings
         _GT(typeof(TimerManager)),
         _GT(typeof(ThreadManager)),
         _GT(typeof(NetworkManager)),
-        _GT(typeof(ResourceManager)),		  
+        _GT(typeof(ResourceManager)),	
+        
+        //me
+        _GT(typeof(ThreadPriority)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

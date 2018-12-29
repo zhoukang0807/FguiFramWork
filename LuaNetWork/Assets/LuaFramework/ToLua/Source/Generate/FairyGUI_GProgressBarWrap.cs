@@ -9,7 +9,6 @@ public class FairyGUI_GProgressBarWrap
 		L.BeginClass(typeof(FairyGUI.GProgressBar), typeof(FairyGUI.GComponent));
 		L.RegFunction("TweenValue", TweenValue);
 		L.RegFunction("Update", Update);
-		L.RegFunction("ConstructFromXML", ConstructFromXML);
 		L.RegFunction("Setup_AfterAdd", Setup_AfterAdd);
 		L.RegFunction("Dispose", Dispose);
 		L.RegFunction("New", _CreateFairyGUI_GProgressBar);
@@ -54,7 +53,7 @@ public class FairyGUI_GProgressBarWrap
 			FairyGUI.GProgressBar obj = (FairyGUI.GProgressBar)ToLua.CheckObject<FairyGUI.GProgressBar>(L, 1);
 			double arg0 = (double)LuaDLL.luaL_checknumber(L, 2);
 			float arg1 = (float)LuaDLL.luaL_checknumber(L, 3);
-			DG.Tweening.Tweener o = obj.TweenValue(arg0, arg1);
+			FairyGUI.GTweener o = obj.TweenValue(arg0, arg1);
 			ToLua.PushObject(L, o);
 			return 1;
 		}
@@ -82,31 +81,15 @@ public class FairyGUI_GProgressBarWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int ConstructFromXML(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 2);
-			FairyGUI.GProgressBar obj = (FairyGUI.GProgressBar)ToLua.CheckObject<FairyGUI.GProgressBar>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.ConstructFromXML(arg0);
-			return 0;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int Setup_AfterAdd(IntPtr L)
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 3);
 			FairyGUI.GProgressBar obj = (FairyGUI.GProgressBar)ToLua.CheckObject<FairyGUI.GProgressBar>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup_AfterAdd(arg0);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			obj.Setup_AfterAdd(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)

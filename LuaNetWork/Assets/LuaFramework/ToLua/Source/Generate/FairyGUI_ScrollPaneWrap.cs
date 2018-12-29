@@ -7,6 +7,7 @@ public class FairyGUI_ScrollPaneWrap
 	public static void Register(LuaState L)
 	{
 		L.BeginClass(typeof(FairyGUI.ScrollPane), typeof(FairyGUI.EventDispatcher));
+		L.RegFunction("Setup", Setup);
 		L.RegFunction("Dispose", Dispose);
 		L.RegFunction("SetPercX", SetPercX);
 		L.RegFunction("SetPercY", SetPercY);
@@ -71,18 +72,10 @@ public class FairyGUI_ScrollPaneWrap
 		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 9)
+			if (count == 1)
 			{
 				FairyGUI.GComponent arg0 = (FairyGUI.GComponent)ToLua.CheckObject<FairyGUI.GComponent>(L, 1);
-				FairyGUI.ScrollType arg1 = (FairyGUI.ScrollType)ToLua.CheckObject(L, 2, typeof(FairyGUI.ScrollType));
-				FairyGUI.Margin arg2 = StackTraits<FairyGUI.Margin>.Check(L, 3);
-				FairyGUI.ScrollBarDisplayType arg3 = (FairyGUI.ScrollBarDisplayType)ToLua.CheckObject(L, 4, typeof(FairyGUI.ScrollBarDisplayType));
-				int arg4 = (int)LuaDLL.luaL_checknumber(L, 5);
-				string arg5 = ToLua.CheckString(L, 6);
-				string arg6 = ToLua.CheckString(L, 7);
-				string arg7 = ToLua.CheckString(L, 8);
-				string arg8 = ToLua.CheckString(L, 9);
-				FairyGUI.ScrollPane obj = new FairyGUI.ScrollPane(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+				FairyGUI.ScrollPane obj = new FairyGUI.ScrollPane(arg0);
 				ToLua.PushObject(L, obj);
 				return 1;
 			}
@@ -90,6 +83,23 @@ public class FairyGUI_ScrollPaneWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to ctor method: FairyGUI.ScrollPane.New");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Setup(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			FairyGUI.ScrollPane obj = (FairyGUI.ScrollPane)ToLua.CheckObject<FairyGUI.ScrollPane>(L, 1);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			obj.Setup(arg0);
+			return 0;
 		}
 		catch (Exception e)
 		{

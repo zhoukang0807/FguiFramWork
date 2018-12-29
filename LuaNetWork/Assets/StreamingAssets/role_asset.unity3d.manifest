@@ -1,0 +1,42 @@
+ManifestFileVersion: 0
+CRC: 866715991
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d22be959a15bb648f699feb538fbb638
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2440dc2e2c5c9cd3f9848627fc0bffe1
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/LuaFramework/Resources/Preps/action/idle3.anim
+- Assets/LuaFramework/Resources/Preps/action/run3.png
+- Assets/LuaFramework/Resources/Preps/action/idle5.png
+- Assets/LuaFramework/Resources/Preps/action/idle1.anim
+- Assets/LuaFramework/Resources/Preps/action/run3.anim
+- Assets/LuaFramework/Resources/Preps/action/run1.png
+- Assets/LuaFramework/Resources/Preps/action/idle2.png
+- Assets/LuaFramework/Resources/Preps/action/idle4.anim
+- Assets/LuaFramework/Resources/Preps/action/idle1.png
+- Assets/LuaFramework/Resources/Preps/action/run5.png
+- Assets/LuaFramework/Resources/Preps/action/run5.anim
+- Assets/LuaFramework/Resources/Preps/action/rolecontrol.controller
+- Assets/LuaFramework/Resources/Preps/action/idle4.png
+- Assets/LuaFramework/Resources/Preps/action/run2.anim
+- Assets/LuaFramework/Resources/Preps/action/run4.anim
+- Assets/LuaFramework/Resources/Preps/action/idle3.png
+- Assets/LuaFramework/Resources/Preps/action/run2.png
+- Assets/LuaFramework/Resources/Preps/action/idle5.anim
+- Assets/LuaFramework/Resources/Preps/action/run4.png
+- Assets/LuaFramework/Resources/Preps/action/idle2.anim
+- Assets/LuaFramework/Resources/Preps/action/run1.anim
+Dependencies: []

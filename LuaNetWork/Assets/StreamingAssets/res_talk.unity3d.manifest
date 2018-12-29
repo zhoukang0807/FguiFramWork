@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1263987446
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ed900623d7c2ce8a54ed63eae0174a7d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f19fbf085e00d23fbc8d6cf7b345590b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/LuaFramework/Resources/FGUI/Res/talk/talk_atlas0.png
+Dependencies: []

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 4174297528
+CRC: 2312550686
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: aaf6775876a0d564d1acf113e988c087
+    Hash: 4f3569367bb8d4589c7d057c5b07471c
   TypeTreeHash:
     serializedVersion: 2
     Hash: d1a738dc2979bb0f77ec25c5bef8ca28
@@ -45,5 +45,5 @@ Assets:
 - Assets/LuaFramework/Examples/Builds/Prompt/PromptItem.prefab
 - Assets/LuaFramework/Examples/Builds/Prompt/PromptPanel.prefab
 Dependencies:
-- D:/project/FguiFramWork/LuaNetWork/Assets/StreamingAssets/prompt_asset.unity3d
-- D:/project/FguiFramWork/LuaNetWork/Assets/StreamingAssets/shared_asset.unity3d
+- F:/project/FguiFramWork/LuaNetWork/Assets/StreamingAssets/prompt_asset.unity3d
+- F:/project/FguiFramWork/LuaNetWork/Assets/StreamingAssets/shared_asset.unity3d

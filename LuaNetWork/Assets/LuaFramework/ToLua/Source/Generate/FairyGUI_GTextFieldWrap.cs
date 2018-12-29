@@ -9,6 +9,7 @@ public class FairyGUI_GTextFieldWrap
 		L.BeginClass(typeof(FairyGUI.GTextField), typeof(FairyGUI.GObject));
 		L.RegFunction("SetVar", SetVar);
 		L.RegFunction("FlushVars", FlushVars);
+		L.RegFunction("HasCharacter", HasCharacter);
 		L.RegFunction("Setup_BeforeAdd", Setup_BeforeAdd);
 		L.RegFunction("Setup_AfterAdd", Setup_AfterAdd);
 		L.RegFunction("New", _CreateFairyGUI_GTextField);
@@ -90,14 +91,33 @@ public class FairyGUI_GTextFieldWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int Setup_BeforeAdd(IntPtr L)
+	static int HasCharacter(IntPtr L)
 	{
 		try
 		{
 			ToLua.CheckArgsCount(L, 2);
 			FairyGUI.GTextField obj = (FairyGUI.GTextField)ToLua.CheckObject<FairyGUI.GTextField>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup_BeforeAdd(arg0);
+			char arg0 = (char)LuaDLL.luaL_checknumber(L, 2);
+			bool o = obj.HasCharacter(arg0);
+			LuaDLL.lua_pushboolean(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Setup_BeforeAdd(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			FairyGUI.GTextField obj = (FairyGUI.GTextField)ToLua.CheckObject<FairyGUI.GTextField>(L, 1);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			obj.Setup_BeforeAdd(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)
@@ -111,10 +131,11 @@ public class FairyGUI_GTextFieldWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 3);
 			FairyGUI.GTextField obj = (FairyGUI.GTextField)ToLua.CheckObject<FairyGUI.GTextField>(L, 1);
-			FairyGUI.Utils.XML arg0 = (FairyGUI.Utils.XML)ToLua.CheckObject<FairyGUI.Utils.XML>(L, 2);
-			obj.Setup_AfterAdd(arg0);
+			FairyGUI.Utils.ByteBuffer arg0 = (FairyGUI.Utils.ByteBuffer)ToLua.CheckObject<FairyGUI.Utils.ByteBuffer>(L, 2);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 3);
+			obj.Setup_AfterAdd(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)
