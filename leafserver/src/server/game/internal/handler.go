@@ -23,6 +23,11 @@ func handleHello(args []interface{}) {
 	// 消息的发送者
 	a := args[1].(gate.Agent)
 
+	var play msg.PlayerDTO 
+	play.UserName = m.GetUsername()
+	var players []*msg.PlayerDTO
+	players = msg.SessionUserServ.AddUser(&play)
+	log.Debug("共有 %d 玩家", len(players))
 	// 输出收到的消息的内容
 	log.Debug("hello %v", m.GetUsername())
 

@@ -44,12 +44,14 @@ func (this *SessionUser) AddUser(play *PlayerDTO) []*PlayerDTO {
 	}
 	if(!flag){
 		this.Id +=1; 
-		ver3 := new(Vector3) 
+		x:=float32(0)
+		y:=float32(0)
+		z:=float32(-1)
 		palydto :=PlayerDTO{
 			Id : this.Id,
-	        Point : *ver3,
+	        Point : Vector3{X:&x,Y:&y,Z:&z},
 		    UserName : play.UserName,
-		}
+		}	
 		this.Playes[this.Id] = &palydto;  
 		players = append(players, &palydto)
 	}
@@ -70,6 +72,7 @@ func (this *SessionMove) GetMoves() []*MoveDTO {
 	return moves
 }
 func (this *SessionMove) SetMoves(move *MoveDTO) *MoveDTO {
-	 this.Moves[move.Id] = move
+	 id := int(*move.Id);
+	 this.Moves[id] = move
 	 return move
 }
