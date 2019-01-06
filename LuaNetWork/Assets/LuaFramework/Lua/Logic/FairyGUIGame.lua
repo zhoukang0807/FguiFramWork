@@ -4,6 +4,7 @@ require "Common/functions"
 require "Controller/PromptCtrl"
 require "FairyGUI" 
 require "Controller/SceneMange" 
+require "Controller/GameCtrl"
 FairyGUIGame = {};
 local this = FairyGUIGame;
 
@@ -23,8 +24,8 @@ end
 
 --初始化完成，发送链接服务器信息--
 function FairyGUIGame.OnInitOK()
-	AppConst.SocketPort = 2012;
-	AppConst.SocketAddress = "127.0.0.1";
+	AppConst.SocketPort = 3563;
+	AppConst.SocketAddress = "111.231.106.151";--192.168.199.247
 	networkMgr:SendConnect();
 	
 	-- CtrlManager.Init();

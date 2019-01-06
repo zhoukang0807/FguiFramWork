@@ -1,5 +1,6 @@
 require "Common/define"
 require "Controller/PromptCtrl"
+require "Controller/GameCtrl"
 require "Controller/MessageCtrl"
 require "Fairy/LogingCtrl"
 

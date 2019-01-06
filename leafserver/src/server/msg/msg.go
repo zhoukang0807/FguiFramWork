@@ -10,14 +10,9 @@ var Processor = protobuf.NewProcessor()
 func init() {
 	// 这里我们注册了消息 Hello
 	Processor.Register(&CUser{})
-}
-
- 
-type PlayerDTO struct{
-	Id int
-	UserName string
-	Direct Vector2
-	Point Vector3
+	Processor.Register(&MoveDTO{})
+	Processor.Register(&PlaysResult{})
+	Processor.Register(&MoveResult{})
 }
 
 type SessionUser struct{
@@ -33,29 +28,28 @@ var(
 	SessionMoveServ = &SessionMove{make(map[int]*MoveDTO)}
 )
 
-func (this *SessionUser) AddUser(play *PlayerDTO) []*PlayerDTO {
+func (this *SessionUser) AddUser(play *PlayerDTO) PlayerDTO {
 	var players []*PlayerDTO
 	var flag bool
+	var player PlayerDTO
 	for _,iteam:=range this.Playes{
 		players = append(players, iteam)
         if(play.UserName == iteam.UserName){
 			flag = true
+			player= *play
 		}
 	}
 	if(!flag){
-		this.Id +=1; 
-		x:=float32(0)
-		y:=float32(0)
-		z:=float32(-1)
+		this.Id +=1;  
 		palydto :=PlayerDTO{
-			Id : this.Id,
-	        Point : Vector3{X:&x,Y:&y,Z:&z},
+			Id : int32(this.Id),
 		    UserName : play.UserName,
 		}	
 		this.Playes[this.Id] = &palydto;  
 		players = append(players, &palydto)
+		player = palydto
 	}
-	return players
+	return player
 }
 func (this *SessionUser) GetPlayes() []*PlayerDTO {
 	var players []*PlayerDTO
@@ -72,7 +66,13 @@ func (this *SessionMove) GetMoves() []*MoveDTO {
 	return moves
 }
 func (this *SessionMove) SetMoves(move *MoveDTO) *MoveDTO {
-	 id := int(*move.Id);
-	 this.Moves[id] = move
+	 this.Moves[int(move.Id)] = move
 	 return move
+}
+
+func (this *SessionMove) RemoveMove(id int32){
+	delete(this.Moves, int(id))
+}
+func (this *SessionUser) RemovePlayer(id int32){
+	delete(this.Playes, int(id))
 }

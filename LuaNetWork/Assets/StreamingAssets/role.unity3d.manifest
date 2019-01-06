@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2543828785
+CRC: 1718085182
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2cdd3b7de87a2f9f9c8512987e266649
+    Hash: f21914a2ff422004258a27ddf516e8a7
   TypeTreeHash:
     serializedVersion: 2
     Hash: fa6c012ba72af92101131e717e434c5f
@@ -39,5 +39,6 @@ Assets:
 - Assets/LuaFramework/Resources/Preps/prep/aa.prefab
 - Assets/LuaFramework/Resources/Preps/prep/rolepanel.prefab
 - Assets/LuaFramework/Resources/Preps/prep/role.prefab
+- Assets/LuaFramework/Resources/Preps/prep/people.prefab
 Dependencies:
 - F:/project/FguiFramWork/LuaNetWork/Assets/StreamingAssets/role_asset.unity3d

@@ -1,0 +1,17 @@
+syntax = "proto3";
+package msg;
+import "MoveDTO.proto";
+
+message PlaysResult {
+  repeated PlayerDTO playes = 1;
+}
+
+
+message MoveResult {
+ repeated MoveDTO moves = 1;
+}
+ 
+
+
+
+

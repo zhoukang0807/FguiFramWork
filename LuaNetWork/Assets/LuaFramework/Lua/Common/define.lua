@@ -2,7 +2,7 @@
 CtrlNames = {
 	Prompt = "PromptCtrl",
 	Message = "MessageCtrl", 
-	Loging = "LogingCtrl"
+	Loging = "LogingCtrl",
 }
 
 PanelNames = {
@@ -21,7 +21,7 @@ ProtocalType = {
 --使用FairyGUI的UI框架时存储UI信息的
 FairyUIs = 
 {
-	"LogingCtrl",
+	"LogingCtrl", 
 }
 --当前使用的协议类型--
 TestProtoType = ProtocalType.PB_LUA;

@@ -3,9 +3,8 @@ require "Common/define"
 require "Common/protocal"
 require "Common/functions"
 Event = require 'events'
-
-require "3rd/pblua/login_pb"
-require "3rd/pblua/test_pb"
+require "3rd/pblua/MoveDTO_pb"
+require "3rd/pblua/Cuser_pb"
 require "3rd/pbc/protobuf"
 
 local sproto = require "3rd/sproto/sproto"
@@ -17,12 +16,16 @@ local this = Network;
 
 local transform;
 local gameObject;
-local islogging = false;
+local islogging = false; 
 
 function Network.Start() 
     logWarn("Network.Start!!");
+    Event.AddListener(Protocal.Login, this.OnMessage); 
+    Event.AddListener(Protocal.Send_Move, this.SetPostionOnMessage); 
+    Event.AddListener(Protocal.Get_Playes, this.Get_PlayesOnMessage); 
+    Event.AddListener(Protocal.Get_Moves, this.Get_MovesOnMessage); 
+
     Event.AddListener(Protocal.Connect, this.OnConnect); 
-    Event.AddListener("512", this.OnMessage); 
     Event.AddListener(Protocal.Exception, this.OnException); 
     Event.AddListener(Protocal.Disconnect, this.OnDisconnect); 
 end
@@ -52,96 +55,55 @@ end
 
 --登录返回--
 function Network.OnMessage(buffer) 
-	if TestProtoType == ProtocalType.BINARY then
-		this.TestLoginBinary(buffer);
-	end
-	if TestProtoType == ProtocalType.PB_LUA then
-		this.TestLoginPblua(buffer);
-	end
-	if TestProtoType == ProtocalType.PBC then
-		this.TestLoginPbc(buffer);
-	end
-	if TestProtoType == ProtocalType.SPROTO then
-		this.TestLoginSproto(buffer);
-	end
-	----------------------------------------------------
-    local ctrl = CtrlManager.GetCtrl(CtrlNames.Message);
-    if ctrl ~= nil then
-        ctrl:Awake();
-    end
+    this.TestLoginPblua(buffer);
     logWarn('OnMessage-------->>>');
 end
-
---二进制登录--
-function Network.TestLoginBinary(buffer)
-	local protocal = buffer:ReadByte();
-	local str = buffer:ReadString();
-	log('TestLoginBinary: protocal:>'..protocal..' str:>'..str);
-end
-
 --PBLUA登录--
 function Network.TestLoginPblua(buffer)
 	local data = buffer:ReadTString();
-
-    local msg = test_pb.Person();
+    local msg = Cuser_pb.CUser();
     msg:ParseFromString(data);
-	log('TestLoginPblua: protocal:>' ..' msg:>'..msg.id);
+    LogingCtrl.id = msg.id;
+    log('TestLoginPblua: protocal:>' ..' msg:>'..msg.id..msg.username..msg.password);
 end
-
---PBC登录--
-function Network.TestLoginPbc(buffer)
-	local protocal = buffer:ReadByte();
-	local data = buffer:ReadBuffer();
-
-    local path = Util.DataPath.."lua/3rd/pbc/addressbook.pb";
-
+--获取用户信息--
+function Network.Get_PlayesOnMessage(buffer)
+	local data = buffer:ReadTString();
+    local path = Util.DataPath.."lua/3rd/pbc/MoveDTO.pb";
     local addr = io.open(path, "rb")
     local buffer = addr:read "*a"
     addr:close()
     protobuf.register(buffer)
-    local decode = protobuf.decode("tutorial.Person" , data)
+    local decode = protobuf.decode("msg.PlaysResult" , data)
+    GameCtrl.playes = decode.playes;
+end
+--获取用户位置--
+function Network.Get_MovesOnMessage(buffer)
+    local data = buffer:ReadTString();
+    local path = Util.DataPath.."lua/3rd/pbc/MoveDTO.pb";
+    local addr = io.open(path, "rb")
+    local buffer = addr:read "*a"
+    addr:close()
+    protobuf.register(buffer)
+    local decode = protobuf.decode("msg.MoveResult" , data)
+    GameCtrl.moves = decode.moves;
+end
+ 
 
-    print(decode.name)
-    print(decode.id)
-    for _,v in ipairs(decode.phone) do
-        print("\t"..v.number, v.type)
-    end
-	log('TestLoginPbc: protocal:>'..protocal);
+--帧同步--
+function Network.SetPostionOnMessage(buffer) 
+    local data = buffer:ReadTString();
+    logWarn('OnMessage-------->>>');
 end
 
---SPROTO登录--
-function Network.TestLoginSproto(buffer)
-	local protocal = buffer:ReadByte();
-	local code = buffer:ReadBuffer();
-
-    local sp = sproto.parse [[
-    .Person {
-        name 0 : string
-        id 1 : integer
-        email 2 : string
-
-        .PhoneNumber {
-            number 0 : string
-            type 1 : integer
-        }
-
-        phone 3 : *PhoneNumber
-    }
-
-    .AddressBook {
-        person 0 : *Person(id)
-        others 1 : *Person
-    }
-    ]]
-    local addr = sp:decode("AddressBook", code)
-    print_r(addr)
-	log('TestLoginSproto: protocal:>'..protocal);
-end
 
 --卸载网络监听--
 function Network.Unload()
+    Event.RemoveListener(Protocal.Login);--Protocal.Message
+    Event.RemoveListener(Protocal.Send_Move);--Protocal.Message
+    Event.RemoveListener(Protocal.Get_Moves);--Protocal.Message
+
     Event.RemoveListener(Protocal.Connect);
-    Event.RemoveListener("512");--Protocal.Message
     Event.RemoveListener(Protocal.Exception);
     Event.RemoveListener(Protocal.Disconnect);
     logWarn('Unload Network...');

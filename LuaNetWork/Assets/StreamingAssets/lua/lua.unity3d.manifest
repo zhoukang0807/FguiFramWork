@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2311417877
+CRC: 418579195
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 00d474b24c1e125b107f638858c49cd4
+    Hash: 41d9009fffa6f0c6056a0ee4eebd06a6
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -12,18 +12,18 @@ ClassTypes:
 - Class: 49
   Script: {instanceID: 0}
 Assets:
-- Assets/Lua/ltn12.lua.bytes
-- Assets/Lua/FairyGUI.lua.bytes
-- Assets/Lua/list.lua.bytes
-- Assets/Lua/tolua.lua.bytes
-- Assets/Lua/eventlib.lua.bytes
-- Assets/Lua/slot.lua.bytes
-- Assets/Lua/Main.lua.bytes
-- Assets/Lua/mime.lua.bytes
-- Assets/Lua/LuaDebug.lua.bytes
-- Assets/Lua/LuaDebugjit.lua.bytes
-- Assets/Lua/typeof.lua.bytes
-- Assets/Lua/socket.lua.bytes
 - Assets/Lua/events.lua.bytes
+- Assets/Lua/Main.lua.bytes
 - Assets/Lua/event.lua.bytes
+- Assets/Lua/typeof.lua.bytes
+- Assets/Lua/LuaDebug.lua.bytes
+- Assets/Lua/ltn12.lua.bytes
+- Assets/Lua/eventlib.lua.bytes
+- Assets/Lua/FairyGUI.lua.bytes
+- Assets/Lua/slot.lua.bytes
+- Assets/Lua/list.lua.bytes
+- Assets/Lua/mime.lua.bytes
+- Assets/Lua/tolua.lua.bytes
+- Assets/Lua/LuaDebugjit.lua.bytes
+- Assets/Lua/socket.lua.bytes
 Dependencies: []

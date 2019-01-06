@@ -1,9 +1,8 @@
 require "Common/define"
 require 'FairyGUI'
-require "3rd/pblua/login_pb"
+require "3rd/pblua/MoveDTO_pb"
 require "3rd/pblua/test_pb"
 require "3rd/pbc/protobuf"
-
 local sproto = require "3rd/sproto/sproto"
 local core = require "sproto.core"
 local print_r = require "3rd/sproto/print_r"
@@ -20,13 +19,18 @@ local camera;
 local animator;
 local x,y,z = 0,0,0;
 local spr;
-local runable;
-local speed =5;
+local runable = false;
+local speed =2.5;
 local isMobile = false;
 local joystick = false; -- 判断摇杆是否在移动
 local view;
 local textshowtime = 0;
 local textview = 0;
+local detiltime = 0;
+local localPlayes = {};
+local people = {};
+local moves;
+local playes;
 local text = "很高兴为你服务，你现在使用的是kagnzw提供的游戏样例，整合了市场上较为方便的前后端框架，如果在使用的过程中有任何疑问欢迎加群123456提问。";
 
 --构建函数--
@@ -108,13 +112,137 @@ function GameCtrl.Update()
         end
     end
 end
+function GameCtrl.SendMove() 
+    local path = Util.DataPath.."lua/3rd/pbc/MoveDTO.pb";
+    local addr = io.open(path, "rb")
+    local buffer = addr:read "*a"
+    addr:close()
+    protobuf.register(buffer)
+    local movedo = {
+        id = LogingCtrl.id,
+        point = { x = tostring(myrole.transform.localPosition.x),y = tostring(myrole.transform.localPosition.y),z =tostring(myrole.transform.localPosition.z) },
+        status = {x = tostring(x),y = tostring(y),runable = runable}
+    }
+    local code = protobuf.encode("msg.MoveDTO", movedo)
+    local buffer = ByteBuffer.New();
+    buffer:WriteShort(Protocal.Send_Move);
+    buffer:WriteTString(code);
+    networkMgr:SendMessage(buffer);
+end
+function GameCtrl.GetMoves() 
+    local path = Util.DataPath.."lua/3rd/pbc/Result.pb";
+    local addr = io.open(path, "rb")
+    local buffer = addr:read "*a"
+    addr:close()
+    protobuf.register(buffer)
+    local movestemp = {
+    }
+    local code = protobuf.encode("msg.MoveResult", movestemp)
+    local buffer = ByteBuffer.New();
+    buffer:WriteShort(Protocal.Get_Moves);
+    buffer:WriteTString(code);
+    networkMgr:SendMessage(buffer);
+end
+function GameCtrl.GetPlayes() 
+    local path = Util.DataPath.."lua/3rd/pbc/Result.pb";
+    local addr = io.open(path, "rb")
+    local buffer = addr:read "*a"
+    addr:close()
+    protobuf.register(buffer)
+    local playestemp = {
+    }
+    local code = protobuf.encode("msg.PlaysResult", playestemp)
+    local buffer = ByteBuffer.New();
+    buffer:WriteShort(Protocal.Get_Playes);
+    buffer:WriteTString(code);
+    networkMgr:SendMessage(buffer);
+end
+function GameCtrl.updateUsers()  
+    if this.playes ~=nil then
+        for key, value in pairs(this.playes) do  
+            if localPlayes[value.id] == nil then
+                localPlayes[value.id] = {}; 
+                if(value.id ~=LogingCtrl.id) then
+                    resMgr:LoadPrefab('role', { 'people' }, function(objs)
+                        this.addpeople(objs,value.id);
+                    end);
+                end
+            end
+            localPlayes[value.id].UserName= value.UserName;  
+        end 
+        for key, value in pairs(localPlayes) do  
+            local flag = true;
+            for _, v in pairs(this.playes) do  
+                if(v.id == key) then
+                    flag = false;
+                    break;
+                end
+            end
+            -- 如果未找到该用户信息则删除该用户角色
+            if(flag) then
+                if(people[key] ~= nil) then
+                    destroy(people[key]);
+                    people[key] = nil;
+                end
+                if(localPlayes[key] ~= nil) then
+                    localPlayes[key] = nil;
+                end
+            end
+        end
+    end
+    if this.moves ~=nil then 
+        for _, v in pairs(this.moves) do  
+            if localPlayes[v.id] ~= nil and people[v.id] ~=nil then
+                if(v.id ~=LogingCtrl.id) then
+                    people[v.id].transform.localRotation = Vector4.zero; 
+                    people[v.id].transform.localPosition = Vector3.New(tonumber(v.point.x),tonumber(v.point.y),tonumber(v.point.z)); 
+                    local ani=  people[v.id]:GetComponent('Animator'); 
+                    local x1 = tonumber(v.status.x);
+                    local y1 = tonumber(v.status.y);
+                    ani:SetFloat("x",x1);
+                    ani:SetFloat("y",y1);
+                    ani:SetBool("runable",v.status.runable);
+                    if x1 > 0  then
+                        people[v.id].transform.localScale = Vector3.New(-1,1,1);
+                    else 
+                        people[v.id].transform.localScale = Vector3.New(1,1,1);
+                    end 
+                end
+            end   
+        end 
+    end
+end
 
+function GameCtrl.addpeople(objs,id)
+    people[id] = newObject(objs[0]);  
+end
+    -- local movedo = MoveDTO_pb.MoveDTO();
+    -- movedo.id = 12;
+    -- local ver3 = MoveDTO_pb.Vector3();
+    -- ver3.x = myrole.transform.localPosition.x;
+    -- ver3.y = myrole.transform.localPosition.y;
+    -- ver3.z = myrole.transform.localPosition.z;
+    -- local target = ver3:SerializePartialToString()
+    -- movedo.point:MergeFromString(target);
+    -- local msg = movedo:SerializeToString();
+    -- local buffer = ByteBuffer.New();
+    -- buffer:WriteShort(Protocal.Send_Move);
+    -- buffer:WriteTString(msg);
+    -- networkMgr:SendMessage(buffer);
 --启动事件--
 function GameCtrl.FixedUpdate(obj)
-    speed = 5;
-    runable = true;
+    speed = 2.5;
+    if(myrole ~= nil and detiltime >= 0.01) then
+       detiltime = 0;
+       this.SendMove();
+       this.GetMoves();
+       this.GetPlayes();
+       this.updateUsers();
+    else
+        detiltime = detiltime+ Time.deltaTime;
+    end
     local x1,y1,z1 = 0,0,0;
-    if myrole ~= nil then 
+    if myrole ~= nil then  
         local ver3 = Vector3.New;
         if isMobile == true then
             x1 = x;
@@ -148,6 +276,7 @@ function GameCtrl.FixedUpdate(obj)
         else 
             x = x1;
             y = y1;
+            runable = true;
         end
         
         animator:SetFloat("x",x1);

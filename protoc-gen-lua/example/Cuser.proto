@@ -1,7 +1,8 @@
-syntax = "proto2";
+syntax = "proto3";
 package msg;
 message CUser {
-  required string username = 1;
-  required string password = 2;  
+   int32 id = 1;
+   string username = 2;
+   string password = 3;  
 }
  
