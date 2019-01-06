@@ -14,3 +14,5 @@ protobuf使用2.0版本<br/>
 游戏中界面
 <img src="http://thyrsi.com/t6/651/1546792883x2890211732.png"/>
 <img src="http://thyrsi.com/t6/651/1546792862x2890211732.png"/>
+
+<h1>如遇问题加QQ群：431560923</h1>
